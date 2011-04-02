@@ -1,0 +1,9 @@
+namoroka-x86simd-1.02.diff
+
+IJG's JPEG library with x86 SIMD extensionのMozilla Firefoxに
+組み込むためのパッチのNamoroka(Fx 3.6)向けの差分ファイルです。
+宮坂氏のoriginalのfirefox-x86simd-1.02.diffの代わりに使用します。
+
+  patch -p1 namoroka-x86simd-1.02.diff
+
+のように適用してください。

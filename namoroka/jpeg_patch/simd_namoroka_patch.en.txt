@@ -1,0 +1,5 @@
+This patch is diff of IJG's JPEG library with x86 SIMD extension
+for Namoroka(Firefox 3.6.xx).
+You uses this patch instead of using firefox-x86simd-1.02.diff
+
+patch -p1 namoroka-x86simd-1.02.diff

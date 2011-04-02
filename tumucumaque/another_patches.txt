@@ -1,0 +1,6 @@
+another patches
+
+https://bugzilla.mozilla.org/show_bug.cgi?id=526038
+https://bugzilla.mozilla.org/show_bug.cgi?id=573948
+https://bugzilla.mozilla.org/show_bug.cgi?id=595653
+https://bugzilla.mozilla.org/show_bug.cgi?id=641325

@@ -1,0 +1,21 @@
+--- memory/jemalloc/crtvc9sp1-intel.diff	2010-10-01 18:51:14 +0900
++++ memory/jemalloc/crtvc9sp1-intel.diff	2010-11-09 18:04:52 +0900
+@@ -122,17 +122,17 @@
+ 1290d
+ 1235,1237d
+ 760c
+ dll_ :: $(OBJROOT) $(OBJCPUDIR) $(OBJDIR_DLL) $(OBJDIR_DLL)\$(PURE_OBJ_DIR) \
+    	$(OBJDIR_DLL)\$(CPP_OBJ_DIR) \
+    	$(RELDIR_CPU) $(PDBDIR_CPU_DLL) $(MAKE_DIRS_DLL)
+ .
+ 340c
+-CC_OPTS_BASE=-c -nologo -Zlp8 -W3 -GFy -DWIND32
++CC_OPTS_BASE=-c -nologo -Zlp8 -W3 -GFy -DWIND32 -arch:SSE2
+ .
+ 213d
+ 21,24c
+ RETAIL_DLL_NAME=MOZCRT19
+ RETAIL_LIB_NAME=mozcrt19
+ RETAIL_DLLCPP_NAME=MOZCPP19
+ RETAIL_LIBCPP_NAME=mozcpp19
+ .

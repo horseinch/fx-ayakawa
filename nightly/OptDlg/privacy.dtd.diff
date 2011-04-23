@@ -1,5 +1,6 @@
---- browser/locales/en-US/chrome/browser/preferences/privacy.dtd.orig	2011-04-03 11:56:32 +0900
-+++ browser/locales/en-US/chrome/browser/preferences/privacy.dtd	2011-04-03 12:15:01 +0900
+diff --git a/browser/locales/en-US/chrome/browser/preferences/privacy.dtd b/browser/locales/en-US/chrome/browser/preferences/privacy.dtd
+--- a/browser/locales/en-US/chrome/browser/preferences/privacy.dtd
++++ b/browser/locales/en-US/chrome/browser/preferences/privacy.dtd
 @@ -21,44 +21,44 @@
  
  <!ENTITY  acceptThirdParty.label        "Accept third-party cookies">

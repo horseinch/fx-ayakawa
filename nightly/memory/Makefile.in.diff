@@ -1,0 +1,30 @@
+diff --git a/memory/jemalloc/Makefile.in b/memory/jemalloc/Makefile.in
+--- a/memory/jemalloc/Makefile.in
++++ b/memory/jemalloc/Makefile.in
+@@ -208,22 +208,23 @@ ifndef WIN32_OLD_STYLE_JEMALLOC
+ #
+ # The result?  A binary that uses jemalloc, doesn't crash, and leaks a tiny
+ # amount of memory (32 words per DLL in the 2010 CRT) at shutdown.
+ #
+ ###############################################################################
+ 
+ libs:: $(DIST)/lib/mozcrt.lib
+ 
+-$(DIST)/lib/mozcrt.lib:: mozcrt.lib
+-	$(INSTALL) $(IFLAGS2) mozcrt.lib $(DIST)/lib
++$(DIST)/lib/mozcrt.lib:: mozcrt_mod.lib
++	$(INSTALL) $(IFLAGS2) mozcrt_mod.lib $(DIST)/lib
++	mv $(DIST)/lib/mozcrt_mod.lib $(DIST)/lib/mozcrt.lib
+ 
+ # And finally combine that with the jemalloc import library to get an import
+ # library that has our malloc/free/etc and the CRT's everything else
+-mozcrt.lib:: $(IMPORT_LIBRARY) msvc_modified.lib
++mozcrt_mod.lib:: $(IMPORT_LIBRARY) msvc_modified.lib
+ 	lib -OUT:$@ $^
+ 
+ # Put the fixed object file back in
+ msvc_modified.lib:: msvc_removed.lib crtdll_fixed.obj
+ 	lib -OUT:$@ $^
+ 
+ # Fix the object file
+ crtdll_fixed.obj:: crtdll.obj

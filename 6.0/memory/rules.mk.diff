@@ -1,0 +1,23 @@
+diff --git a/config/rules.mk b/config/rules.mk
+--- a/config/rules.mk
++++ b/config/rules.mk
+@@ -833,17 +833,19 @@ ifdef IS_COMPONENT
+ 	$(INSTALL) $(IFLAGS2) $(SHARED_LIBRARY) $(FINAL_TARGET)/components
+ 	$(ELF_DYNSTR_GC) $(FINAL_TARGET)/components/$(SHARED_LIBRARY)
+ ifndef NO_COMPONENTS_MANIFEST
+ 	@$(PYTHON) $(MOZILLA_DIR)/config/buildlist.py $(FINAL_TARGET)/chrome.manifest "manifest components/components.manifest"
+ 	@$(PYTHON) $(MOZILLA_DIR)/config/buildlist.py $(FINAL_TARGET)/components/components.manifest "binary-component $(SHARED_LIBRARY)"
+ endif
+ else # ! IS_COMPONENT
+ ifneq (,$(filter OS2 WINNT,$(OS_ARCH)))
++ifndef NO_INSTALL_IMPORT_LIBRARY
+ 	$(INSTALL) $(IFLAGS2) $(IMPORT_LIBRARY) $(DIST)/lib
++endif
+ else
+ 	$(INSTALL) $(IFLAGS2) $(SHARED_LIBRARY) $(DIST)/lib
+ endif
+ 	$(INSTALL) $(IFLAGS2) $(SHARED_LIBRARY) $(FINAL_TARGET)
+ endif # IS_COMPONENT
+ endif # SHARED_LIBRARY
+ ifdef PROGRAM
+ 	$(INSTALL) $(IFLAGS2) $(PROGRAM) $(FINAL_TARGET)

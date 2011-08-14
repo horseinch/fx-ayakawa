@@ -1,0 +1,26 @@
+diff --git a/browser/installer/package-manifest.in b/browser/installer/package-manifest.in
+--- a/browser/installer/package-manifest.in
++++ b/browser/installer/package-manifest.in
+@@ -74,18 +74,22 @@
+ @BINPATH@/msvcm90.dll
+ @BINPATH@/msvcp90.dll
+ @BINPATH@/msvcr90.dll
+ #elif _MSC_VER == 1600
+ @BINPATH@/msvcp100.dll
+ @BINPATH@/msvcr100.dll
+ #endif
+ #else
++#ifdef WIN32_OLD_STYLE_JEMALLOC
+ @BINPATH@/mozcrt19.dll
+ @BINPATH@/mozcpp19.dll
++#else
++@BINPATH@/jemalloc.dll
++#endif
+ #endif
+ #endif
+ 
+ [browser]
+ ; [Base Browser Files]
+ #ifndef XP_UNIX
+ @BINPATH@/@MOZ_APP_NAME@.exe
+ #else

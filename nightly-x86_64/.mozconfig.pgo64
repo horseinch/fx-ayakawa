@@ -14,7 +14,10 @@ ac_add_options --with-branding=browser/branding/unofficial
 
 ac_add_options --enable-extensions=default
 ac_add_options --enable-strip
-ac_add_options --enable-optimize="-O2 -favor:AMD64"
+ac_add_options --enable-optimize="-O2 -GA -favor:AMD64"
+# ac_add_options --enable-optimize="-O2 -GR- -GS- -favor:AMD64"
+# ac_add_options --enable-optimize="-O1 -GA -favor:AMD64"
+# ac_add_options --enable-optimize="-favor:AMD64"
 
 # diasble updater
 ac_add_options --disable-updater

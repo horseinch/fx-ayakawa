@@ -1,5 +1,6 @@
---- mozilla-central/browser/locales/en-US/chrome/browser/preferences/main.dtd.orig	2010-09-21 15:07:41 +0900
-+++ mozilla-central/browser/locales/en-US/chrome/browser/preferences/main.dtd	2010-09-21 15:10:40 +0900
+diff --git a/browser/locales/en-US/chrome/browser/preferences/main.dtd b/browser/locales/en-US/chrome/browser/preferences/main.dtd
+--- a/browser/locales/en-US/chrome/browser/preferences/main.dtd
++++ b/browser/locales/en-US/chrome/browser/preferences/main.dtd
 @@ -1,11 +1,11 @@
  <!ENTITY startup.label             "Startup">
  
@@ -9,7 +10,7 @@
  <!ENTITY startupHomePage.label     "Show my home page">
  <!ENTITY startupBlankPage.label    "Show a blank page">
  <!ENTITY startupLastSession.label  "Show my windows and tabs from last time">
+ <!ENTITY restoreOnDemand.label     "Don’t load tabs until selected">
+ <!ENTITY restoreOnDemand.accesskey "l">
+ 
  <!ENTITY homepage.label            "Home Page:">
- <!ENTITY homepage.accesskey        "P">
- <!ENTITY useCurrentPage.label      "Use Current Page">
- <!ENTITY useCurrentPage.accesskey  "C">

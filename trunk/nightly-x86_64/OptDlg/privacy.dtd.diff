@@ -28,8 +28,8 @@ diff --git a/browser/locales/en-US/chrome/browser/preferences/privacy.dtd b/brow
  <!ENTITY  historyHeader.custom.label       "Use custom settings for history">
  <!ENTITY  historyHeader.post.label         "">
  
--<!ENTITY  rememberDescription.label      "&brandShortName; will remember your browsing, download, form and search history, and keep cookies from Web sites you visit.">
-+<!ENTITY  rememberDescription.label      "browser will remember your browsing, download, form and search history, and keep cookies from Web sites you visit.">
+-<!ENTITY  rememberDescription.label      "&brandShortName; will remember your browsing, download, form and search history, and keep cookies from websites you visit.">
++<!ENTITY  rememberDescription.label      "browser will remember your browsing, download, form and search history, and keep cookies from websites you visit.">
  
  <!-- LOCALIZATION NOTE (rememberActions.pre.label): include a trailing space as needed -->
  <!-- LOCALIZATION NOTE (rememberActions.middle.label): include a starting and trailing space as needed -->
@@ -49,7 +49,7 @@ diff --git a/browser/locales/en-US/chrome/browser/preferences/privacy.dtd b/brow
  <!ENTITY  dontrememberActions.clearHistory.label "clear all current history">
  <!ENTITY  dontrememberActions.post.label         ".">
  
- <!ENTITY  privateBrowsingPermanent.label "Permanent Private Browsing mode">
+ <!ENTITY  privateBrowsingPermanent2.label "Always use private browsing mode">
 @@ -68,13 +68,13 @@
  <!ENTITY  rememberHistory.accesskey  "b">
  

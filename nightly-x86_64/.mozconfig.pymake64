@@ -1,0 +1,41 @@
+. $topsrcdir/browser/config/mozconfig
+
+export MOZ_OPTIMIZE_LDFLAGS="-MACHINE:X64"
+mk_add_options MOZ_OPTIMIZE_LDFLAGS="-MACHINE:X64"
+
+# mk_add_options MOZ_MAKE_FLAGS=-j4
+
+ac_add_options --disable-debug
+ac_add_options --disable-tests
+ac_add_options --disable-ipdl-tests
+ac_add_options --enable-installer
+ac_add_options --with-branding=browser/branding/unofficial
+
+ac_add_options --enable-extensions=default
+ac_add_options --enable-strip
+ac_add_options --enable-install-strip
+ac_add_options --enable-optimize="-O2 -GA -favor:AMD64"
+
+# diasble updater
+ac_add_options --disable-updater
+ac_add_options --disable-update-channel
+
+# diasble crashreporter
+ac_add_options --disable-crashreporter
+
+# disable activex
+ac_add_options --disable-activex
+ac_add_options --disable-activex-scripting
+
+# for x86_64 build
+ac_add_options --target=x86_64-pc-mingw32
+ac_add_options --host=x86_64-pc-mingw32
+
+#
+ac_add_options --enable-jemalloc
+
+# for auto pgo build
+mk_add_options PROFILE_GEN_SCRIPT='$(PYTHON) $(MOZ_OBJDIR)/_profile/pgo/profileserver.py'
+
+# for debug
+ac_add_options --enable-debugger-info-modules=yes

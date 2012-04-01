@@ -1,7 +1,7 @@
 diff --git a/js/src/Makefile.in b/js/src/Makefile.in
 --- a/js/src/Makefile.in
 +++ b/js/src/Makefile.in
-@@ -72,19 +72,19 @@ endif
+@@ -68,19 +68,19 @@ TEST_DIRS += tests
  
  MODULE		    = js
  LIBRARY_NAME	    = mozjs
@@ -24,7 +24,25 @@ diff --git a/js/src/Makefile.in b/js/src/Makefile.in
  #
  # In fact, we now build both a static and a shared library, as the
  # JS shell would like to link to the static library.
-@@ -925,16 +925,21 @@ endif
+@@ -254,16 +254,17 @@ EXPORTS_js = \
+ 		$(NULL)
+ 
+ ###############################################
+ # BEGIN include sources for low-level code shared with mfbt
+ #
+ VPATH += $(srcdir)/../../mfbt
+ include $(srcdir)/../../mfbt/exported_headers.mk
+ 
++
+ ifdef ENABLE_METHODJIT
+ 
+ ###############################################
+ # BEGIN include sources for the method JIT
+ #
+ VPATH += 	$(srcdir)/methodjit
+ 
+ CPPSRCS += 	MethodJIT.cpp \
+@@ -889,16 +890,21 @@ endif
  CXXFLAGS += -DUSE_SYSTEM_MALLOC=1 -DENABLE_ASSEMBLER=1
  
  ifneq (,$(ENABLE_YARR_JIT)$(ENABLE_METHODJIT))

@@ -133,7 +133,43 @@ diff --git a/js/src/jsmath.cpp b/js/src/jsmath.cpp
 diff --git a/js/src/methodjit/Compiler.cpp b/js/src/methodjit/Compiler.cpp
 --- a/js/src/methodjit/Compiler.cpp
 +++ b/js/src/methodjit/Compiler.cpp
-@@ -4770,31 +4770,33 @@ mjit::Compiler::inlineScriptedFunction(u
+@@ -936,16 +936,17 @@ MakeJITScript(JSContext *cx, JSScript *s
+         CrossChunkEdge &edge = jitEdges[i];
+         edge.shimLabel = shimCode + (size_t) edge.shimLabel;
+     }
+ 
+     location = jit;
+     return jit;
+ }
+ 
++#pragma optimize("g", off)
+ CompileStatus
+ mjit::CanMethodJIT(JSContext *cx, JSScript *script, jsbytecode *pc,
+                    bool construct, CompileRequest request)
+ {
+   restart:
+     if (!cx->methodJitEnabled)
+         return Compile_Abort;
+ 
+@@ -1006,16 +1007,17 @@ mjit::CanMethodJIT(JSContext *cx, JSScri
+     }
+ 
+     /* Non-OOM errors should have an associated exception. */
+     JS_ASSERT_IF(status == Compile_Error,
+                  cx->isExceptionPending() || cx->runtime->hadOutOfMemory);
+ 
+     return status;
+ }
++#pragma optimize("g", on)
+ 
+ CompileStatus
+ mjit::Compiler::generatePrologue()
+ {
+     invokeLabel = masm.label();
+ 
+     /*
+      * If there is no function, then this can only be called via JaegerShot(),
+@@ -4770,31 +4772,33 @@ mjit::Compiler::inlineScriptedFunction(u
   * being set. This includes any API callbacks and any scripted or native call.
   */
  void
@@ -142,7 +178,7 @@ diff --git a/js/src/methodjit/Compiler.cpp b/js/src/methodjit/Compiler.cpp
      callSites.append(site);
  }
  
-+#pragma optimize("g",off)
++#pragma optimize("g", off)
  void
  mjit::Compiler::inlineStubCall(void *stub, RejoinState rejoin, Uses uses)
  {
@@ -158,7 +194,7 @@ diff --git a/js/src/methodjit/Compiler.cpp b/js/src/methodjit/Compiler.cpp
      }
      addCallSite(site);
  }
-+#pragma optimize("g",on)
++#pragma optimize("g", on)
  
  bool
  mjit::Compiler::compareTwoValues(JSContext *cx, JSOp op, const Value &lhs, const Value &rhs)

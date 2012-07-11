@@ -1,7 +1,7 @@
 diff --git a/browser/locales/en-US/chrome/browser/preferences/privacy.dtd b/browser/locales/en-US/chrome/browser/preferences/privacy.dtd
 --- a/browser/locales/en-US/chrome/browser/preferences/privacy.dtd
 +++ b/browser/locales/en-US/chrome/browser/preferences/privacy.dtd
-@@ -21,44 +21,44 @@
+@@ -20,57 +20,57 @@
  
  <!ENTITY  acceptThirdParty.label        "Accept third-party cookies">
  <!ENTITY  acceptThirdParty.accesskey    "c">
@@ -28,8 +28,8 @@ diff --git a/browser/locales/en-US/chrome/browser/preferences/privacy.dtd b/brow
  <!ENTITY  historyHeader.custom.label       "Use custom settings for history">
  <!ENTITY  historyHeader.post.label         "">
  
--<!ENTITY  rememberDescription.label      "&brandShortName; will remember your browsing, download, form and search history, and keep cookies from Web sites you visit.">
-+<!ENTITY  rememberDescription.label      "browser will remember your browsing, download, form and search history, and keep cookies from Web sites you visit.">
+-<!ENTITY  rememberDescription.label      "&brandShortName; will remember your browsing, download, form and search history, and keep cookies from websites you visit.">
++<!ENTITY  rememberDescription.label      "browser will remember your browsing, download, form and search history, and keep cookies from websites you visit.">
  
  <!-- LOCALIZATION NOTE (rememberActions.pre.label): include a trailing space as needed -->
  <!-- LOCALIZATION NOTE (rememberActions.middle.label): include a starting and trailing space as needed -->
@@ -49,12 +49,11 @@ diff --git a/browser/locales/en-US/chrome/browser/preferences/privacy.dtd b/brow
  <!ENTITY  dontrememberActions.clearHistory.label "clear all current history">
  <!ENTITY  dontrememberActions.post.label         ".">
  
- <!ENTITY  privateBrowsingPermanent.label "Permanent Private Browsing mode">
-@@ -68,13 +68,13 @@
- <!ENTITY  rememberHistory.accesskey  "b">
+ <!ENTITY  privateBrowsingPermanent2.label "Always use private browsing mode">
+ <!ENTITY  privateBrowsingPermanent2.accesskey "p">
  
- <!ENTITY  rememberDownload.label         "Remember download history">
- <!ENTITY  rememberDownload.accesskey     "d">
+ <!ENTITY  rememberHistory2.label      "Remember my browsing and download history">
+ <!ENTITY  rememberHistory2.accesskey  "b">
  
  <!ENTITY  rememberSearchForm.label       "Remember search and form history">
  <!ENTITY  rememberSearchForm.accesskey   "f">

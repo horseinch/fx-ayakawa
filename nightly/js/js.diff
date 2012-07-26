@@ -1,25 +1,7 @@
 diff --git a/js/src/Makefile.in b/js/src/Makefile.in
 --- a/js/src/Makefile.in
 +++ b/js/src/Makefile.in
-@@ -221,16 +221,17 @@ EXPORTS_js = \
- 
- ###############################################
- # BEGIN include sources for low-level code shared with mfbt
- #
- MFBT_ROOT = $(srcdir)/../../mfbt
- VPATH += $(MFBT_ROOT)
- include $(MFBT_ROOT)/exported_headers.mk
- 
-+
- ifdef ENABLE_METHODJIT
- 
- ###############################################
- # BEGIN include sources for the method JIT
- #
- VPATH += 	$(srcdir)/methodjit
- 
- CPPSRCS += 	MethodJIT.cpp \
-@@ -668,17 +669,20 @@ endif
+@@ -672,17 +672,20 @@ EXTRA_LIBS += $(MOZ_ZLIB_LIBS)
  # Prevent floating point errors caused by VC++ optimizations
  ifdef _MSC_VER
  # XXX We should add this to CXXFLAGS, too?
@@ -33,15 +15,15 @@ diff --git a/js/src/Makefile.in b/js/src/Makefile.in
 +FrameState.$(OBJ_SUFFIX): CXXFLAGS += -GL-
 +FastOps.$(OBJ_SUFFIX): CXXFLAGS += -GL-
 +# Compiler.$(OBJ_SUFFIX): CXXFLAGS += -GL-
+ # Ditto (Bug 772303)
+ RegExp.$(OBJ_SUFFIX): CXXFLAGS += -GL-
  endif
  endif # _MSC_VER
  
  ifeq ($(OS_ARCH),FreeBSD)
  EXTRA_LIBS	+= -pthread
  endif
- ifeq ($(OS_ARCH),Linux)
- EXTRA_LIBS	+= -ldl
-@@ -841,16 +845,21 @@ endif
+@@ -847,16 +850,21 @@ endif
  CXXFLAGS += -DUSE_SYSTEM_MALLOC=1 -DENABLE_ASSEMBLER=1
  
  ifneq (,$(ENABLE_YARR_JIT)$(ENABLE_METHODJIT))
@@ -90,7 +72,7 @@ diff --git a/js/src/jsmath.cpp b/js/src/jsmath.cpp
 diff --git a/js/src/methodjit/Compiler.cpp b/js/src/methodjit/Compiler.cpp
 --- a/js/src/methodjit/Compiler.cpp
 +++ b/js/src/methodjit/Compiler.cpp
-@@ -904,16 +904,17 @@ MakeJITScript(JSContext *cx, JSScript *s
+@@ -908,16 +908,17 @@ MakeJITScript(JSContext *cx, JSScript *s
      for (unsigned i = 0; i < jit->nedges; i++) {
          CrossChunkEdge &edge = jitEdges[i];
          edge.shimLabel = shimCode + (size_t) edge.shimLabel;
@@ -102,13 +84,13 @@ diff --git a/js/src/methodjit/Compiler.cpp b/js/src/methodjit/Compiler.cpp
 +#pragma optimize("g", off)
  CompileStatus
  mjit::CanMethodJIT(JSContext *cx, JSScript *script, jsbytecode *pc,
-                    bool construct, CompileRequest request)
+                    bool construct, CompileRequest request, StackFrame *frame)
  {
    restart:
      if (!cx->methodJitEnabled)
          return Compile_Abort;
  
-@@ -993,16 +994,18 @@ mjit::CanMethodJIT(JSContext *cx, JSScri
+@@ -1006,16 +1007,18 @@ mjit::CanMethodJIT(JSContext *cx, JSScri
      }
  
      /* Non-OOM errors should have an associated exception. */
@@ -127,7 +109,7 @@ diff --git a/js/src/methodjit/Compiler.cpp b/js/src/methodjit/Compiler.cpp
  
      /*
       * If there is no function, then this can only be called via JaegerShot(),
-@@ -4601,31 +4604,33 @@ mjit::Compiler::inlineScriptedFunction(u
+@@ -4574,31 +4577,33 @@ mjit::Compiler::inlineScriptedFunction(u
   * being set. This includes any API callbacks and any scripted or native call.
   */
  void

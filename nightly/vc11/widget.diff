@@ -1,0 +1,70 @@
+diff --git a/widget/windows/nsNativeThemeWin.cpp b/widget/windows/nsNativeThemeWin.cpp
+--- a/widget/windows/nsNativeThemeWin.cpp
++++ b/widget/windows/nsNativeThemeWin.cpp
+@@ -2071,40 +2071,43 @@ nsNativeThemeWin::GetMinimumWidgetSize(n
+       AddPaddingRect(aResult, CAPTIONBUTTON_CLOSE);
+       *aIsOverridable = false;
+       return NS_OK;
+ 
+     case NS_THEME_WINDOW_TITLEBAR:
+     case NS_THEME_WINDOW_TITLEBAR_MAXIMIZED:
+       aResult->height = GetSystemMetrics(SM_CYCAPTION);
+       aResult->height += GetSystemMetrics(SM_CYFRAME);
++      aResult->height += GetSystemMetrics(SM_CXPADDEDBORDER);
+       *aIsOverridable = false;
+       return NS_OK;
+ 
+     case NS_THEME_WINDOW_BUTTON_BOX:
+     case NS_THEME_WINDOW_BUTTON_BOX_MAXIMIZED:
+       if (nsUXThemeData::CheckForCompositor()) {
+         QueryForButtonData(aFrame);
+         aResult->width = nsUXThemeData::sCommandButtons[CMDBUTTONIDX_BUTTONBOX].cx;
+         aResult->height = nsUXThemeData::sCommandButtons[CMDBUTTONIDX_BUTTONBOX].cy
+-                          - GetSystemMetrics(SM_CYFRAME);
++                          - GetSystemMetrics(SM_CYFRAME)
++                          - GetSystemMetrics(SM_CXPADDEDBORDER);
+         if (aWidgetType == NS_THEME_WINDOW_BUTTON_BOX_MAXIMIZED) {
+           aResult->width += 1;
+           aResult->height -= 2;
+         }
+         *aIsOverridable = false;
+         return NS_OK;
+       }
+       break;
+ 
+     case NS_THEME_WINDOW_FRAME_LEFT:
+     case NS_THEME_WINDOW_FRAME_RIGHT:
+     case NS_THEME_WINDOW_FRAME_BOTTOM:
+       aResult->width = GetSystemMetrics(SM_CXFRAME);
+       aResult->height = GetSystemMetrics(SM_CYFRAME);
++      aResult->height += GetSystemMetrics(SM_CXPADDEDBORDER);
+       *aIsOverridable = false;
+       return NS_OK;
+   }
+ 
+   int32_t part, state;
+   nsresult rv = GetThemePartAndState(aFrame, aWidgetType, part, state);
+   if (NS_FAILED(rv))
+     return rv;
+diff --git a/widget/windows/nsWindow.cpp b/widget/windows/nsWindow.cpp
+--- a/widget/windows/nsWindow.cpp
++++ b/widget/windows/nsWindow.cpp
+@@ -1902,17 +1902,17 @@ nsWindow::GetNonClientMargins(nsIntMargi
+     return window->GetNonClientMargins(margins);
+   }
+ 
+   if (mCustomNonClient) {
+     margins = mNonClientMargins;
+     return NS_OK;
+   }
+ 
+-  margins.top = GetSystemMetrics(SM_CYCAPTION);
++  margins.top = GetSystemMetrics(SM_CYCAPTION) + GetSystemMetrics(SM_CXPADDEDBORDER);
+   margins.bottom = GetSystemMetrics(SM_CYFRAME);
+   margins.top += margins.bottom;
+   margins.left = margins.right = GetSystemMetrics(SM_CXFRAME);
+ 
+   return NS_OK;
+ }
+ 
+ void

@@ -1,7 +1,7 @@
 diff --git a/js/src/Makefile.in b/js/src/Makefile.in
 --- a/js/src/Makefile.in
 +++ b/js/src/Makefile.in
-@@ -711,17 +711,16 @@ endif
+@@ -712,17 +712,16 @@ endif
  # Prevent floating point errors caused by VC++ optimizations
  ifdef _MSC_VER
  # XXX We should add this to CXXFLAGS, too?
@@ -46,7 +46,7 @@ diff --git a/js/src/jsmath.cpp b/js/src/jsmath.cpp
 diff --git a/js/src/methodjit/Compiler.cpp b/js/src/methodjit/Compiler.cpp
 --- a/js/src/methodjit/Compiler.cpp
 +++ b/js/src/methodjit/Compiler.cpp
-@@ -978,16 +978,17 @@ IonGetsFirstChance(JSContext *cx, JSScri
+@@ -979,16 +979,17 @@ IonGetsFirstChance(JSContext *cx, JSScri
      if (script->ion == ION_COMPILING_SCRIPT)
          return false;
  
@@ -57,14 +57,14 @@ diff --git a/js/src/methodjit/Compiler.cpp b/js/src/methodjit/Compiler.cpp
  
 +#pragma optimize("g", off)
  CompileStatus
- mjit::CanMethodJIT(JSContext *cx, JSScript *script, jsbytecode *pc,
+ mjit::CanMethodJIT(JSContext *cx, JSScript *scriptArg, jsbytecode *pc,
                     bool construct, CompileRequest request, StackFrame *frame)
  {
+     RootedScript script(cx, scriptArg);
    restart:
      if (!cx->methodJitEnabled)
          return Compile_Abort;
- 
-@@ -1109,16 +1110,18 @@ mjit::CanMethodJIT(JSContext *cx, JSScri
+@@ -1111,16 +1112,18 @@ mjit::CanMethodJIT(JSContext *cx, JSScri
      }
  
      /* Non-OOM errors should have an associated exception. */
@@ -83,7 +83,7 @@ diff --git a/js/src/methodjit/Compiler.cpp b/js/src/methodjit/Compiler.cpp
  
      /*
       * If there is no function, then this can only be called via JaegerShot(),
-@@ -4832,31 +4835,33 @@ mjit::Compiler::inlineScriptedFunction(u
+@@ -4836,31 +4839,33 @@ mjit::Compiler::inlineScriptedFunction(u
   * being set. This includes any API callbacks and any scripted or native call.
   */
  void

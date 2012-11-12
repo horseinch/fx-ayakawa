@@ -16,7 +16,7 @@ ac_add_options --enable-strip
 ac_add_options --enable-install-strip
 
 # for Athlon 64/Pentium 4/
-ac_add_options --enable-optimize="-O2 -arch:SSE2 -GR- -GS- -Ot"
+ac_add_options --enable-optimize="-O1 -Oi -arch:SSE2"
 
 # diasble updater
 ac_add_options --disable-updater

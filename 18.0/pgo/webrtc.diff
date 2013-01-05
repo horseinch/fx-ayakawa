@@ -1,0 +1,24 @@
+diff --git a/media/webrtc/trunk/tools/gyp/pylib/gyp/generator/mozmake.py b/media/webrtc/trunk/tools/gyp/pylib/gyp/generator/mozmake.py
+--- a/media/webrtc/trunk/tools/gyp/pylib/gyp/generator/mozmake.py
++++ b/media/webrtc/trunk/tools/gyp/pylib/gyp/generator/mozmake.py
+@@ -51,18 +51,18 @@ ifndef COMMON_MK_INCLUDED
+ COMMON_MK_INCLUDED := 1
+ 
+ ifdef MOZ_DEBUG
+ CFLAGS += $(CPPFLAGS_Debug) $(CFLAGS_Debug)
+ CXXFLAGS += $(CPPFLAGS_Debug) $(CXXFLAGS_Debug)
+ DEFINES += $(DEFINES_Debug)
+ LOCAL_INCLUDES += $(INCLUDES_Debug)
+ else # non-MOZ_DEBUG
+-CFLAGS += $(CPPFLAGS_Release) $(CFLAGS_Release)
+-CXXFLAGS += $(CPPFLAGS_Release) $(CXXFLAGS_Release)
++CFLAGS += $(CPPFLAGS_Release) $(CFLAGS_Release) -GL-
++CXXFLAGS += $(CPPFLAGS_Release) $(CXXFLAGS_Release) -GL-
+ DEFINES += $(DEFINES_Release)
+ LOCAL_INCLUDES += $(INCLUDES_Release)
+ endif
+ 
+ ifeq (WINNT,$(OS_TARGET))
+ # These get set via VC project file settings for normal GYP builds.
+ DEFINES += -DUNICODE -D_UNICODE
+ LOCAL_INCLUDES += -I"$(MOZ_DIRECTX_SDK_PATH)/include"

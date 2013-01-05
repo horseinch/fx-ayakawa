@@ -1,0 +1,118 @@
+diff --git a/js/src/Makefile.in b/js/src/Makefile.in
+--- a/js/src/Makefile.in
++++ b/js/src/Makefile.in
+@@ -718,17 +718,16 @@ endif
+ # Prevent floating point errors caused by VC++ optimizations
+ ifdef _MSC_VER
+ # XXX We should add this to CXXFLAGS, too?
+ CFLAGS += -fp:precise
+ 
+ ifeq ($(CPU_ARCH),x86)
+ # Workaround compiler bug on PGO (Bug 721284)
+ MonoIC.$(OBJ_SUFFIX): CXXFLAGS += -GL-
+-Compiler.$(OBJ_SUFFIX): CXXFLAGS += -GL-
+ # Ditto (Bug 772303)
+ RegExp.$(OBJ_SUFFIX): CXXFLAGS += -GL-
+ endif
+ endif # _MSC_VER
+ 
+ ifeq ($(OS_ARCH),FreeBSD)
+ EXTRA_LIBS	+= -pthread
+ endif
+diff --git a/js/src/jsmath.cpp b/js/src/jsmath.cpp
+--- a/js/src/jsmath.cpp
++++ b/js/src/jsmath.cpp
+@@ -23,16 +23,20 @@
+ #include "jsmath.h"
+ #include "jsnum.h"
+ #include "jslibmath.h"
+ #include "jscompartment.h"
+ 
+ #include "jsinferinlines.h"
+ #include "jsobjinlines.h"
+ 
++#if (_M_IX86_FP >= 2)
++#pragma function(floor)
++#endif
++
+ using namespace js;
+ 
+ #ifndef M_E
+ #define M_E             2.7182818284590452354
+ #endif
+ #ifndef M_LOG2E
+ #define M_LOG2E         1.4426950408889634074
+ #endif
+diff --git a/js/src/methodjit/Compiler.cpp b/js/src/methodjit/Compiler.cpp
+--- a/js/src/methodjit/Compiler.cpp
++++ b/js/src/methodjit/Compiler.cpp
+@@ -984,16 +984,17 @@ IonGetsFirstChance(JSContext *cx, JSScri
+     if (script->ion == ION_COMPILING_SCRIPT)
+         return false;
+ 
+     return true;
+ #endif
+     return false;
+ }
+ 
++#pragma optimize("g", off)
+ CompileStatus
+ mjit::CanMethodJIT(JSContext *cx, JSScript *scriptArg, jsbytecode *pc,
+                    bool construct, CompileRequest request, StackFrame *frame)
+ {
+     bool compiledOnce = false;
+     RootedScript script(cx, scriptArg);
+   checkOutput:
+     if (!cx->methodJitEnabled)
+@@ -1120,16 +1121,17 @@ mjit::CanMethodJIT(JSContext *cx, JSScri
+     }
+ 
+     /* Non-OOM errors should have an associated exception. */
+     JS_ASSERT_IF(status == Compile_Error,
+                  cx->isExceptionPending() || cx->runtime->hadOutOfMemory);
+ 
+     return status;
+ }
++#pragma optimize("g", on)
+ 
+ CompileStatus
+ mjit::Compiler::generatePrologue()
+ {
+     fastEntryLabel = masm.label();
+ 
+     /*
+      * If there is no function, then this can only be called via JaegerShot(),
+@@ -4845,31 +4847,33 @@ mjit::Compiler::inlineScriptedFunction(u
+  * being set. This includes any API callbacks and any scripted or native call.
+  */
+ void
+ mjit::Compiler::addCallSite(const InternalCallSite &site)
+ {
+     callSites.append(site);
+ }
+ 
++#pragma optimize("g", off)
+ void
+ mjit::Compiler::inlineStubCall(void *stub, RejoinState rejoin, Uses uses)
+ {
+     DataLabelPtr inlinePatch;
+     Call cl = emitStubCall(stub, &inlinePatch);
+     InternalCallSite site(masm.callReturnOffset(cl), a->inlineIndex, PC,
+                           rejoin, false);
+     site.inlinePatch = inlinePatch;
+     if (loop && loop->generatingInvariants()) {
+         Jump j = masm.jump();
+         Label l = masm.label();
+         loop->addInvariantCall(j, l, false, false, callSites.length(), uses);
+     }
+     addCallSite(site);
+ }
++#pragma optimize("g", on)
+ 
+ bool
+ mjit::Compiler::compareTwoValues(JSContext *cx, JSOp op, const Value &lhs, const Value &rhs)
+ {
+     JS_ASSERT(lhs.isPrimitive());
+     JS_ASSERT(rhs.isPrimitive());
+ 
+     if (lhs.isString() && rhs.isString()) {

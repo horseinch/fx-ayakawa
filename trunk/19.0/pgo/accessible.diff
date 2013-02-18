@@ -1,0 +1,159 @@
+diff --git a/accessible/build/Makefile.in b/accessible/build/Makefile.in
+--- a/accessible/build/Makefile.in
++++ b/accessible/build/Makefile.in
+@@ -39,8 +39,11 @@ SHARED_LIBRARY_LIBS += \
+ endif
+ 
+ ifdef MOZ_XUL
+ SHARED_LIBRARY_LIBS += ../src/xul/$(LIB_PREFIX)accessibility_xul_s.$(LIB_SUFFIX)
+ endif
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-
+diff --git a/accessible/src/Makefile.in b/accessible/src/Makefile.in
+--- a/accessible/src/Makefile.in
++++ b/accessible/src/Makefile.in
+@@ -46,8 +46,12 @@ DIRS += \
+   xpcom \
+   $(null)
+ 
+ ifdef MOZ_XUL
+ DIRS +=   xul
+ endif
+ 
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-
+diff --git a/accessible/src/atk/Makefile.in b/accessible/src/atk/Makefile.in
+--- a/accessible/src/atk/Makefile.in
++++ b/accessible/src/atk/Makefile.in
+@@ -67,8 +67,12 @@ LOCAL_INCLUDES += \
+   -I$(srcdir)/../xpcom \
+   -I$(srcdir)/../xul \
+   -I$(topsrcdir)/other-licenses/atk-1.0 \
+   $(NULL)
+ 
+ ifneq ($(A11Y_LOG),0)
+   DEFINES += -DA11Y_LOG
+ endif
++
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-
+diff --git a/accessible/src/base/Makefile.in b/accessible/src/base/Makefile.in
+--- a/accessible/src/base/Makefile.in
++++ b/accessible/src/base/Makefile.in
+@@ -105,8 +105,12 @@ LOCAL_INCLUDES += \
+   $(NULL)
+ endif
+ endif
+ endif
+ 
+ ifneq ($(A11Y_LOG),0)
+   DEFINES += -DA11Y_LOG
+ endif
++
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-
+diff --git a/accessible/src/generic/Makefile.in b/accessible/src/generic/Makefile.in
+--- a/accessible/src/generic/Makefile.in
++++ b/accessible/src/generic/Makefile.in
+@@ -73,8 +73,12 @@ LOCAL_INCLUDES += \
+   $(NULL)
+ endif
+ endif
+ endif
+ 
+ ifneq ($(A11Y_LOG),0)
+   DEFINES += -DA11Y_LOG
+ endif
++
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-
+diff --git a/accessible/src/html/Makefile.in b/accessible/src/html/Makefile.in
+--- a/accessible/src/html/Makefile.in
++++ b/accessible/src/html/Makefile.in
+@@ -63,8 +63,12 @@ LOCAL_INCLUDES += \
+   $(NULL)
+ endif
+ endif
+ endif
+ 
+ ifneq ($(A11Y_LOG),0)
+   DEFINES += -DA11Y_LOG
+ endif
++
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-
+diff --git a/accessible/src/windows/ia2/Makefile.in b/accessible/src/windows/ia2/Makefile.in
+--- a/accessible/src/windows/ia2/Makefile.in
++++ b/accessible/src/windows/ia2/Makefile.in
+@@ -53,8 +53,12 @@ LOCAL_INCLUDES += \
+   -I$(srcdir)/../../msaa \
+   -I$(srcdir)/../../xpcom \
+   -I$(srcdir)/../../xul \
+   $(NULL)
+ 
+ ifdef A11Y_LOG
+   DEFINES += -DA11Y_LOG
+ endif
++
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-
+diff --git a/accessible/src/windows/uia/Makefile.in b/accessible/src/windows/uia/Makefile.in
+--- a/accessible/src/windows/uia/Makefile.in
++++ b/accessible/src/windows/uia/Makefile.in
+@@ -33,8 +33,12 @@ LOCAL_INCLUDES += \
+   -I$(srcdir)/../../msaa \
+   -I$(srcdir)/../../xpcom \
+   -I$(srcdir)/../../xul \
+   $(NULL)
+ 
+ ifdef A11Y_LOG
+   DEFINES += -DA11Y_LOG
+ endif
++
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-
+diff --git a/accessible/src/xpcom/Makefile.in b/accessible/src/xpcom/Makefile.in
+--- a/accessible/src/xpcom/Makefile.in
++++ b/accessible/src/xpcom/Makefile.in
+@@ -51,8 +51,12 @@ LOCAL_INCLUDES += \
+   $(NULL)
+ endif
+ endif
+ endif
+ 
+ ifneq ($(A11Y_LOG),0)
+   DEFINES += -DA11Y_LOG
+ endif
++
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-
+diff --git a/accessible/src/xul/Makefile.in b/accessible/src/xul/Makefile.in
+--- a/accessible/src/xul/Makefile.in
++++ b/accessible/src/xul/Makefile.in
+@@ -67,8 +67,12 @@ LOCAL_INCLUDES += \
+   $(NULL)
+ endif
+ endif
+ endif
+ 
+ ifneq ($(A11Y_LOG),0)
+   DEFINES += -DA11Y_LOG
+ endif
++
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-

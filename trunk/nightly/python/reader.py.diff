@@ -1,0 +1,41 @@
+diff --git a/python/mozbuild/mozbuild/frontend/reader.py b/python/mozbuild/mozbuild/frontend/reader.py
+--- a/python/mozbuild/mozbuild/frontend/reader.py
++++ b/python/mozbuild/mozbuild/frontend/reader.py
+@@ -24,16 +24,17 @@ It does this by examining specific varia
+ from __future__ import print_function, unicode_literals
+ 
+ import logging
+ import os
+ import sys
+ import time
+ import traceback
+ import types
++import locale
+ 
+ from io import StringIO
+ 
+ from mozbuild.util import (
+     ReadOnlyDefaultDict,
+     ReadOnlyDict,
+ )
+ 
+@@ -158,17 +159,18 @@ class MozbuildSandbox(Sandbox):
+             d['OBJDIR'] = os.path.join(topobjdir, reldir).replace(os.sep, '/').rstrip('/')
+ 
+             # config.status does not yet use unicode. However, mozbuild expects
+             # unicode everywhere. So, decode binary into unicode as necessary.
+             # Bug 844509 tracks a better way to do this.
+             substs = {}
+             for k, v in config.substs.items():
+                 if not isinstance(v, text_type):
+-                    v = v.decode('utf-8', 'strict')
++                    enc = locale.getpreferredencoding()
++                    v = unicode(v, enc)
+ 
+                 substs[k] = v
+ 
+             d['CONFIG'] = ReadOnlyDefaultDict(substs, global_default=None)
+ 
+             # Register functions.
+             for name, func in FUNCTIONS.items():
+                 d[name] = getattr(self, func[0])

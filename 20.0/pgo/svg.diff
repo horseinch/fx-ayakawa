@@ -1,0 +1,79 @@
+diff --git a/content/smil/Makefile.in b/content/smil/Makefile.in
+--- a/content/smil/Makefile.in
++++ b/content/smil/Makefile.in
+@@ -83,8 +83,12 @@ INCLUDES += 	\
+ 		-I$(srcdir)/../base/src \
+ 		-I$(srcdir)/../../layout/style \
+ 		-I$(srcdir)/../events/src \
+ 		$(NULL)
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
+ DEFINES += -D_IMPL_NS_LAYOUT
++
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-
+diff --git a/content/svg/content/Makefile.in b/content/svg/content/Makefile.in
+--- a/content/svg/content/Makefile.in
++++ b/content/svg/content/Makefile.in
+@@ -12,8 +12,11 @@ VPATH		= @srcdir@
+ include $(DEPTH)/config/autoconf.mk
+ 
+ PARALLEL_DIRS		= src
+ 
+ TEST_DIRS += test
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-
+diff --git a/content/svg/content/src/Makefile.in b/content/svg/content/src/Makefile.in
+--- a/content/svg/content/src/Makefile.in
++++ b/content/svg/content/src/Makefile.in
+@@ -203,8 +203,12 @@ INCLUDES += 	\
+ 		-I$(srcdir)/../../../../layout/style \
+ 		-I$(srcdir)/../../../events/src \
+ 		-I$(srcdir)/../../../html/content/src \
+ 		-I$(topsrcdir)/content/xbl/src \
+ 		-I$(srcdir)/../../../smil \
+ 		$(NULL)
+ 
+ DEFINES += -D_IMPL_NS_LAYOUT
++
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-
+diff --git a/content/svg/document/src/Makefile.in b/content/svg/document/src/Makefile.in
+--- a/content/svg/document/src/Makefile.in
++++ b/content/svg/document/src/Makefile.in
+@@ -30,8 +30,12 @@ INCLUDES	+= \
+ 		-I$(srcdir)/../../../html/document/src \
+ 		-I$(srcdir)/../../../../layout/style \
+ 		-I$(srcdir)/../../../base/src \
+ 		-I$(srcdir)/../../../events/src \
+ 		-I$(topsrcdir)/xpcom/ds \
+ 		$(NULL)
+ 
+ DEFINES += -D_IMPL_NS_LAYOUT
++
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-
+diff --git a/layout/svg/Makefile.in b/layout/svg/Makefile.in
+--- a/layout/svg/Makefile.in
++++ b/layout/svg/Makefile.in
+@@ -82,8 +82,12 @@ LOCAL_INCLUDES	= \
+ libs::
+ 	$(INSTALL) $(srcdir)/svg.css $(DIST)/bin/res
+ 
+ install::
+ 	$(SYSINSTALL) $(IFLAGS1) $(srcdir)/svg.css $(DESTDIR)$(mozappdir)/res
+ 
+ 
+ DEFINES += -D_IMPL_NS_LAYOUT
++
++# for Linker HEAP OVERFLOW error...
++CFLAGS		+= -GL-
++CXXFLAGS	+= -GL-

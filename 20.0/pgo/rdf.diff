@@ -1,0 +1,60 @@
+diff --git a/rdf/base/src/Makefile.in b/rdf/base/src/Makefile.in
+--- a/rdf/base/src/Makefile.in
++++ b/rdf/base/src/Makefile.in
+@@ -32,8 +32,11 @@ CPPSRCS		= \
+ 		rdfutil.cpp \
+ 		$(NULL)
+ 
+ # we don't want the shared lib, but we want to force the creation of a static lib.
+ FORCE_STATIC_LIB = 1
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/rdf/build/Makefile.in b/rdf/build/Makefile.in
+--- a/rdf/build/Makefile.in
++++ b/rdf/build/Makefile.in
+@@ -35,8 +35,11 @@ EXPORTS		= nsRDFCID.h
+ include $(topsrcdir)/config/rules.mk
+ 
+ LOCAL_INCLUDES	= \
+ 		-I$(srcdir)/../base/src \
+ 		-I$(srcdir)/../content/src \
+ 		-I$(srcdir)/../datasource/src \
+ 		$(NULL)
+ 
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/rdf/datasource/src/Makefile.in b/rdf/datasource/src/Makefile.in
+--- a/rdf/datasource/src/Makefile.in
++++ b/rdf/datasource/src/Makefile.in
+@@ -24,8 +24,11 @@ CPPSRCS		= \
+ FORCE_STATIC_LIB = 1
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
+ # XXX This is a dependency on rdfutil.h: it'll go away once that becomes
+ # a first-class XPCOM interface.
+ INCLUDES	+= -I$(srcdir)/../../base/src
+ 
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/rdf/util/src/Makefile.in b/rdf/util/src/Makefile.in
+--- a/rdf/util/src/Makefile.in
++++ b/rdf/util/src/Makefile.in
+@@ -27,8 +27,11 @@ DIST_INSTALL = 1
+ 
+ CPPSRCS		= $(RDF_UTIL_SRC_LCPPSRCS)
+ 
+ # we don't want the shared lib, but we want to force the creation of a static lib.
+ FORCE_STATIC_LIB = 1
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-

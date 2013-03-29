@@ -1,0 +1,32 @@
+diff --git a/content/mathml/content/src/Makefile.in b/content/mathml/content/src/Makefile.in
+--- a/content/mathml/content/src/Makefile.in
++++ b/content/mathml/content/src/Makefile.in
+@@ -34,8 +34,12 @@ EXPORTS = \
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
+ INCLUDES += 	\
+ 		-I$(srcdir)/../../../base/src \
+ 		$(NULL)
+ 
+ DEFINES += -D_IMPL_NS_LAYOUT
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/layout/mathml/Makefile.in b/layout/mathml/Makefile.in
+--- a/layout/mathml/Makefile.in
++++ b/layout/mathml/Makefile.in
+@@ -90,8 +90,12 @@ math_properties = mathfont.properties
+ 	test -d $(@D) || $(NSINSTALL) -D $(@D)
+ 	rm -f $@
+ 	$(PYTHON) $(MOZILLA_DIR)/config/Preprocessor.py --marker=% $(DEFINES) $(ACDEFINES) $< > $@
+ 
+ libs:: $(DIST)/bin/res/fonts/$(math_properties)
+ install:: $(DESTDIR)$(mozappdir)/res/fonts/$(math_properties)
+ 
+ DEFINES += -D_IMPL_NS_LAYOUT
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-

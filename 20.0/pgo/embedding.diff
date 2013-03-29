@@ -1,0 +1,139 @@
+diff --git a/embedding/browser/build/Makefile.in b/embedding/browser/build/Makefile.in
+--- a/embedding/browser/build/Makefile.in
++++ b/embedding/browser/build/Makefile.in
+@@ -29,8 +29,12 @@ SHARED_LIBRARY_LIBS= \
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
+ INCLUDES	+= \
+ 		-I$(srcdir)			\
+ 		-I$(srcdir)/../webBrowser		\
+ 		-I$(srcdir)/../setup		\
+ 		$(NULL)
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/embedding/browser/webBrowser/Makefile.in b/embedding/browser/webBrowser/Makefile.in
+--- a/embedding/browser/webBrowser/Makefile.in
++++ b/embedding/browser/webBrowser/Makefile.in
+@@ -61,8 +61,12 @@ SDK_XPIDLSRCS += nsIWebBrowserPrint.idl
+ XPIDLSRCS     += nsIPrintingPrompt.idl nsIPrintingPromptService.idl
+ endif
+ 
+ # we don't want the shared lib, but we want to force the creation of a
+ # static lib.
+ FORCE_STATIC_LIB = 1
+ 
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/embedding/components/appstartup/src/Makefile.in b/embedding/components/appstartup/src/Makefile.in
+--- a/embedding/components/appstartup/src/Makefile.in
++++ b/embedding/components/appstartup/src/Makefile.in
+@@ -23,8 +23,11 @@ EXPORTS =	\
+ 		$(NULL)
+ 
+ # we don't want the shared lib, but we want to force the creation of a
+ # static lib.
+ FORCE_STATIC_LIB = 1
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/embedding/components/build/Makefile.in b/embedding/components/build/Makefile.in
+--- a/embedding/components/build/Makefile.in
++++ b/embedding/components/build/Makefile.in
+@@ -56,8 +56,12 @@ ifeq ($(MOZ_WIDGET_TOOLKIT),windows)
+ LOCAL_INCLUDES += -I$(srcdir)/../printingui/src/win 
+ endif
+ 
+ ifeq (cocoa,$(MOZ_WIDGET_TOOLKIT))
+ LOCAL_INCLUDES += -I$(srcdir)/../printingui/src/mac
+ endif
+ 
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/embedding/components/commandhandler/src/Makefile.in b/embedding/components/commandhandler/src/Makefile.in
+--- a/embedding/components/commandhandler/src/Makefile.in
++++ b/embedding/components/commandhandler/src/Makefile.in
+@@ -25,8 +25,11 @@ CPPSRCS		= \
+ 
+ 
+ # we don't want the shared lib, but we want to force the creation of a
+ # static lib.
+ FORCE_STATIC_LIB = 1
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/embedding/components/find/src/Makefile.in b/embedding/components/find/src/Makefile.in
+--- a/embedding/components/find/src/Makefile.in
++++ b/embedding/components/find/src/Makefile.in
+@@ -20,8 +20,11 @@ CPPSRCS		= nsWebBrowserFind.cpp \
+                   $(NULL)
+ 
+ # we don't want the shared lib, but we want to force the creation of a
+ # static lib.
+ FORCE_STATIC_LIB = 1
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/embedding/components/printingui/src/win/Makefile.in b/embedding/components/printingui/src/win/Makefile.in
+--- a/embedding/components/printingui/src/win/Makefile.in
++++ b/embedding/components/printingui/src/win/Makefile.in
+@@ -24,8 +24,11 @@ CPPSRCS		= \
+       $(NULL)
+ 
+ # we don't want the shared lib, but we want to force the creation of a
+ # static lib.
+ FORCE_STATIC_LIB = 1
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/embedding/components/webbrowserpersist/src/Makefile.in b/embedding/components/webbrowserpersist/src/Makefile.in
+--- a/embedding/components/webbrowserpersist/src/Makefile.in
++++ b/embedding/components/webbrowserpersist/src/Makefile.in
+@@ -19,8 +19,11 @@ CPPSRCS		= nsWebBrowserPersist.cpp \
+                   $(NULL)
+ 
+ # we don't want the shared lib, but we want to force the creation of a
+ # static lib.
+ FORCE_STATIC_LIB = 1
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/embedding/components/windowwatcher/src/Makefile.in b/embedding/components/windowwatcher/src/Makefile.in
+--- a/embedding/components/windowwatcher/src/Makefile.in
++++ b/embedding/components/windowwatcher/src/Makefile.in
+@@ -27,8 +27,12 @@ endif
+ # we don't want the shared lib, but we want to force the creation of a
+ # static lib.
+ FORCE_STATIC_LIB = 1
+ 
+ # For nsJSUtils
+ LOCAL_INCLUDES += -I$(topsrcdir)/dom/base \
+ 
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-

@@ -1,0 +1,16 @@
+diff --git a/parser/htmlparser/src/Makefile.in b/parser/htmlparser/src/Makefile.in
+--- a/parser/htmlparser/src/Makefile.in
++++ b/parser/htmlparser/src/Makefile.in
+@@ -39,8 +39,12 @@ CPPSRCS = \
+ 		nsParserModule.cpp  \
+ 		nsParserNode.cpp    \
+ 		nsScanner.cpp       \
+ 		nsToken.cpp         \
+ 		nsParserMsgUtils.cpp\
+ 		$(NULL)
+ 
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-

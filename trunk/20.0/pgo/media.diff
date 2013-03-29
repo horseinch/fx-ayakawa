@@ -1,0 +1,231 @@
+diff --git a/media/libcubeb/src/Makefile.in b/media/libcubeb/src/Makefile.in
+--- a/media/libcubeb/src/Makefile.in
++++ b/media/libcubeb/src/Makefile.in
+@@ -56,8 +56,12 @@ CSRCS		= \
+ endif
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
+ CFLAGS += \
+ 	$(MOZ_ALSA_CFLAGS) \
+ 	$(MOZ_PULSEAUDIO_CFLAGS) \
+ 	$(NULL)
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/media/libnestegg/src/Makefile.in b/media/libnestegg/src/Makefile.in
+--- a/media/libnestegg/src/Makefile.in
++++ b/media/libnestegg/src/Makefile.in
+@@ -17,8 +17,12 @@ VISIBILITY_FLAGS =
+ endif
+ 
+ CSRCS		= \
+ 		nestegg.c \
+ 		halloc.c \
+ 		$(NULL)
+ 		
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/media/libogg/src/Makefile.in b/media/libogg/src/Makefile.in
+--- a/media/libogg/src/Makefile.in
++++ b/media/libogg/src/Makefile.in
+@@ -17,8 +17,12 @@ VISIBILITY_FLAGS =
+ endif
+ 
+ CSRCS		= \
+ 		ogg_bitwise.c \
+ 		ogg_framing.c \
+ 		$(NULL)
+ 
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/media/libopus/Makefile.in b/media/libopus/Makefile.in
+--- a/media/libopus/Makefile.in
++++ b/media/libopus/Makefile.in
+@@ -79,8 +79,12 @@ VPATH += $(srcdir)/silk/fixed
+ CSRCS += $(notdir $(SILK_SOURCES_FIXED))
+ else
+ LOCAL_INCLUDES += -I$(srcdir)/silk/float
+ VPATH += $(srcdir)/silk/float
+ CSRCS += $(notdir $(SILK_SOURCES_FLOAT))
+ endif
+ 
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/media/libsoundtouch/src/Makefile.in b/media/libsoundtouch/src/Makefile.in
+--- a/media/libsoundtouch/src/Makefile.in
++++ b/media/libsoundtouch/src/Makefile.in
+@@ -51,8 +51,11 @@ mmx_optimized.$(OBJ_SUFFIX): CXXFLAGS+=-
+ sse_optimized.$(OBJ_SUFFIX): CXXFLAGS+=-msse2
+ endif
+ ifdef SOLARIS_SUNPRO_CXX
+ mmx_optimized.$(OBJ_SUFFIX): OS_CXXFLAGS += -xarch=sse2 -xO4
+ sse_optimized.$(OBJ_SUFFIX): OS_CXXFLAGS += -xarch=sse2 -xO4
+ endif
+ endif
+ 
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/media/libspeex_resampler/src/Makefile.in b/media/libspeex_resampler/src/Makefile.in
+--- a/media/libspeex_resampler/src/Makefile.in
++++ b/media/libspeex_resampler/src/Makefile.in
+@@ -35,8 +35,12 @@ CSRCS = \
+ 
+ EXPORTS_speex = \
+     speex_config_types.h \
+     speex_resampler.h \
+     speex_types.h \
+     $(NULL)
+ 
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/media/libsydneyaudio/src/Makefile.in b/media/libsydneyaudio/src/Makefile.in
+--- a/media/libsydneyaudio/src/Makefile.in
++++ b/media/libsydneyaudio/src/Makefile.in
+@@ -74,8 +74,12 @@ ifeq ($(OS_ARCH),WINNT)
+ OS_LIBS += winmm.lib
+ endif
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
+ LOCAL_INCLUDES += -I$(srcdir)/../include
+ 
+ CFLAGS += $(MOZ_ALSA_CFLAGS)
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/media/libtheora/lib/Makefile.in b/media/libtheora/lib/Makefile.in
+--- a/media/libtheora/lib/Makefile.in
++++ b/media/libtheora/lib/Makefile.in
+@@ -122,8 +122,12 @@ armopts-gnu.S: armopts.s
+ 	$(PERL) $(srcdir)/arm/arm2gnu.pl < $< > $@
+ 
+ endif
+ endif
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
+ LOCAL_INCLUDES = -I$(srcdir)
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/media/libtremor/lib/Makefile.in b/media/libtremor/lib/Makefile.in
+--- a/media/libtremor/lib/Makefile.in
++++ b/media/libtremor/lib/Makefile.in
+@@ -33,8 +33,12 @@ ifeq ($(OS_ARCH),AIX)
+ DEFINES += -Dalloca=__alloca
+ endif
+ 
+ ifeq (arm_1_, $(TARGET_CPU)_$(GNU_CC)_$(MOZ_THUMB2))
+ DEFINES += -D_ARM_ASSEM_
+ endif
+ 
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/media/libvorbis/Makefile.in b/media/libvorbis/Makefile.in
+--- a/media/libvorbis/Makefile.in
++++ b/media/libvorbis/Makefile.in
+@@ -12,8 +12,12 @@ include $(DEPTH)/config/autoconf.mk
+ MODULE		= vorbis
+ 
+ DIRS		= \
+ 		include \
+ 		lib \
+ 		$(NULL)
+ 
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/media/mtransport/build/Makefile.in b/media/mtransport/build/Makefile.in
+--- a/media/mtransport/build/Makefile.in
++++ b/media/mtransport/build/Makefile.in
+@@ -58,8 +58,12 @@ DEFINES += \
+   -DWIN32 \
+   -DNOMINMAX \
+   $(NULL)
+ else ifeq (Linux,$(OS_TARGET))
+ DEFINES += -DLINUX
+ endif
+ 
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/media/mtransport/standalone/Makefile.in b/media/mtransport/standalone/Makefile.in
+--- a/media/mtransport/standalone/Makefile.in
++++ b/media/mtransport/standalone/Makefile.in
+@@ -53,8 +53,12 @@ DEFINES += \
+   $(NULL)
+ else ifeq (Linux,$(OS_TARGET))
+ DEFINES += -DLINUX
+ endif
+ 
+ include $(srcdir)/../objs.mk
+ 
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/media/mtransport/third_party/Makefile.in b/media/mtransport/third_party/Makefile.in
+--- a/media/mtransport/third_party/Makefile.in
++++ b/media/mtransport/third_party/Makefile.in
+@@ -46,8 +46,12 @@ include $(DEPTH)/config/autoconf.mk
+ PARALLEL_DIRS = \
+   nrappkit \
+   nICEr \
+   $(NULL)
+ 
+ NO_SUBMAKEFILES_RULE = 1
+ 
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/media/webrtc/trunk/tools/gyp/pylib/gyp/generator/mozmake.py b/media/webrtc/trunk/tools/gyp/pylib/gyp/generator/mozmake.py
+--- a/media/webrtc/trunk/tools/gyp/pylib/gyp/generator/mozmake.py
++++ b/media/webrtc/trunk/tools/gyp/pylib/gyp/generator/mozmake.py
+@@ -51,18 +51,18 @@ ifndef COMMON_MK_INCLUDED
+ COMMON_MK_INCLUDED := 1
+ 
+ ifdef MOZ_DEBUG
+ CFLAGS += $(CPPFLAGS_Debug) $(CFLAGS_Debug)
+ CXXFLAGS += $(CPPFLAGS_Debug) $(CXXFLAGS_Debug)
+ DEFINES += $(DEFINES_Debug)
+ LOCAL_INCLUDES += $(INCLUDES_Debug)
+ else # non-MOZ_DEBUG
+-CFLAGS += $(CPPFLAGS_Release) $(CFLAGS_Release)
+-CXXFLAGS += $(CPPFLAGS_Release) $(CXXFLAGS_Release)
++CFLAGS += $(CPPFLAGS_Release) $(CFLAGS_Release) -GL-
++CXXFLAGS += $(CPPFLAGS_Release) $(CXXFLAGS_Release) -GL-
+ DEFINES += $(DEFINES_Release)
+ LOCAL_INCLUDES += $(INCLUDES_Release)
+ endif
+ 
+ ifeq (WINNT,$(OS_TARGET))
+ # These get set via VC project file settings for normal GYP builds.
+ DEFINES += -DUNICODE -D_UNICODE
+ LOCAL_INCLUDES += -I"$(MOZ_DIRECTX_SDK_PATH)/include"

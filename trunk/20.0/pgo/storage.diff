@@ -1,0 +1,31 @@
+diff --git a/storage/build/Makefile.in b/storage/build/Makefile.in
+--- a/storage/build/Makefile.in
++++ b/storage/build/Makefile.in
+@@ -28,8 +28,11 @@ LOCAL_INCLUDES = \
+ 	-I$(srcdir)/../src
+ 
+ SHARED_LIBRARY_LIBS = \
+ 	../src/$(LIB_PREFIX)storage_s.$(LIB_SUFFIX) \
+ 	$(NULL)
+ 
+ include $(topsrcdir)/config/rules.mk
+ 
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
+diff --git a/storage/src/Makefile.in b/storage/src/Makefile.in
+--- a/storage/src/Makefile.in
++++ b/storage/src/Makefile.in
+@@ -74,8 +74,12 @@ LOCAL_INCLUDES = \
+   -I$(topsrcdir)/dom/base \
+   $(NULL)
+ 
+ # This is the default value.  If we ever change it when compiling sqlite, we
+ # will need to change it here as well.
+ DEFINES += -DSQLITE_MAX_LIKE_PATTERN_LENGTH=50000
+ 
+ include $(topsrcdir)/config/rules.mk
++
++# for Linker Out of Memory...
++CXXFLAGS += -GL-
++CFLAGS += -GL-
